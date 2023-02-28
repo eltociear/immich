@@ -1,5 +1,12 @@
 import { JobName, QueueName } from './job.constants';
-import { IAssetJob, IAssetUploadedJob, IDeleteFilesJob, IReverseGeocodingJob, IUserDeletionJob } from './job.interface';
+import {
+  IAlbumJob,
+  IAssetJob,
+  IAssetUploadedJob,
+  IDeleteFilesJob,
+  IReverseGeocodingJob,
+  IUserDeletionJob,
+} from './job.interface';
 
 export interface JobCounts {
   active: number;
@@ -23,7 +30,11 @@ export type JobItem =
   | { name: JobName.EXTRACT_VIDEO_METADATA; data: IAssetUploadedJob }
   | { name: JobName.OBJECT_DETECTION; data: IAssetJob }
   | { name: JobName.IMAGE_TAGGING; data: IAssetJob }
-  | { name: JobName.DELETE_FILES; data: IDeleteFilesJob };
+  | { name: JobName.DELETE_FILES; data: IDeleteFilesJob }
+  | { name: JobName.SEARCH_INDEX_ASSETS }
+  | { name: JobName.SEARCH_INDEX_ASSET; data: IAssetJob }
+  | { name: JobName.SEARCH_INDEX_ALBUMS }
+  | { name: JobName.SEARCH_INDEX_ALBUM; data: IAlbumJob };
 
 export const IJobRepository = 'IJobRepository';
 

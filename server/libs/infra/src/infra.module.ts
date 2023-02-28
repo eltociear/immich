@@ -8,6 +8,7 @@ import {
   IKeyRepository,
   IMachineLearningRepository,
   IMediaRepository,
+  ISearchRepository,
   ISharedLinkRepository,
   ISmartInfoRepository,
   IStorageRepository,
@@ -45,13 +46,13 @@ import {
 import { JobRepository } from './job';
 import { MachineLearningRepository } from './machine-learning';
 import { MediaRepository } from './media';
+import { TypesenseRepository } from './search';
 import { FilesystemProvider } from './storage';
 
 const providers: Provider[] = [
   { provide: IAlbumRepository, useClass: AlbumRepository },
   { provide: IAssetRepository, useClass: AssetRepository },
   { provide: ICommunicationRepository, useClass: CommunicationRepository },
-  { provide: ICryptoRepository, useClass: CryptoRepository },
   { provide: ICryptoRepository, useClass: CryptoRepository },
   { provide: IDeviceInfoRepository, useClass: DeviceInfoRepository },
   { provide: IKeyRepository, useClass: APIKeyRepository },
@@ -64,6 +65,7 @@ const providers: Provider[] = [
   { provide: ISystemConfigRepository, useClass: SystemConfigRepository },
   { provide: IUserRepository, useClass: UserRepository },
   { provide: IUserTokenRepository, useClass: UserTokenRepository },
+  { provide: ISearchRepository, useClass: TypesenseRepository },
 ];
 
 @Global()

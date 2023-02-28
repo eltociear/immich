@@ -1,5 +1,6 @@
 import {
   AssetService,
+  IAlbumJob,
   IAssetJob,
   IAssetUploadedJob,
   IDeleteFilesJob,
@@ -7,6 +8,7 @@ import {
   JobName,
   MediaService,
   QueueName,
+  SearchService,
   SmartInfoService,
   StorageService,
   StorageTemplateService,
@@ -58,6 +60,31 @@ export class MachineLearningProcessor {
   @Process({ name: JobName.OBJECT_DETECTION, concurrency: 2 })
   async onDetectObject(job: Job<IAssetJob>) {
     await this.smartInfoService.handleDetectObjects(job.data);
+  }
+}
+
+@Processor(QueueName.SEARCH_INDEX)
+export class SearchIndexProcessor {
+  constructor(private searchService: SearchService) {}
+
+  @Process({ name: JobName.SEARCH_INDEX_ASSETS, concurrency: 1 })
+  async indexAssets() {
+    await this.searchService.indexAssets();
+  }
+
+  @Process({ name: JobName.SEARCH_INDEX_ASSET, concurrency: 1 })
+  async indexAsset(job: Job<IAssetJob>) {
+    await this.searchService.indexAsset(job.data.asset);
+  }
+
+  @Process({ name: JobName.SEARCH_INDEX_ALBUMS, concurrency: 1 })
+  async indexAlbums() {
+    await this.searchService.indexAlbums();
+  }
+
+  @Process({ name: JobName.SEARCH_INDEX_ALBUM, concurrency: 1 })
+  async indexAlbum(job: Job<IAlbumJob>) {
+    await this.searchService.indexAlbum(job.data.album);
   }
 }
 

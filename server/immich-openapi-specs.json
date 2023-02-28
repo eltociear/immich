@@ -544,6 +544,52 @@
         ]
       }
     },
+    "/search/search": {
+      "get": {
+        "operationId": "search",
+        "description": "",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Search"
+        ],
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "cookie": []
+          },
+          {
+            "bearer": []
+          },
+          {
+            "cookie": []
+          }
+        ]
+      }
+    },
     "/share": {
       "get": {
         "operationId": "getAllSharedLinks",
@@ -3552,6 +3598,29 @@
         },
         "required": [
           "url"
+        ]
+      },
+      "SearchDto": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          }
+        }
+      },
+      "SearchResponseDto": {
+        "type": "object",
+        "properties": {
+          "albums": {
+            "type": "object"
+          },
+          "assets": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "albums",
+          "assets"
         ]
       },
       "SharedLinkType": {
